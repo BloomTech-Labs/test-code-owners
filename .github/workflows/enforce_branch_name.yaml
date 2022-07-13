@@ -1,23 +1,16 @@
 name: enforce_branch_name
-description: 'Enforces branch naming convention that all branches by non-CODEOWNERS must start with a Jira ID.'
-inputs:
-  codeowners_path:
-    required: false
-    description: 'Location of CODEOWNERS file'
-    default: './CODEOWNERS'
-output: 
-  codeowners:
-    description: "JSON string containing all CODEOWNERS information"
+
 on: create
-  jobs:
-    enforce_branch_name:
-      runs-on: ubuntu-latest
-      steps:
-        - name: "Checkout source code"
-          uses: actions/checkout@v3
-        - name: "Read CODEOWNERS file"
-          id: getcodeowners
-          run: echo "::set-output name=codeowners::$(cat {{ inputs.codeowners_path }})"
-        - name: "Enforce convention if creator is not a CODEOWNER"
-          if: ! contains(${{ steps.getcodeowners.outputs.codeowners }}, ${{sender.login}})
-          run: REGEXP="^refs\/heads\/BL-\d+-\S*$" && [[ $({{ github.ref }}) =~ $REGEXP ]] && exit 1
+
+jobs:
+  enforce_branch_name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout source code"
+        uses: actions/checkout@v3
+      - name: "Read CODEOWNERS file"
+        id: getcodeowners
+        run: echo "::set-output name=codeowners::$(cat {{ './CODEOWNERS' }})"
+      - name: "Enforce convention if creator is not a CODEOWNER"
+        if: ! contains(${{ steps.getcodeowners.outputs.codeowners }}, ${{sender.login}})
+        run: REGEXP="^refs\/heads\/BL-\d+-\S*$" && [[ $({{ github.ref }}) =~ $REGEXP ]] && exit 1
