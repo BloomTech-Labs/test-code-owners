@@ -13,4 +13,4 @@ jobs:
         run: echo "::set-output name=codeowners::$(cat {{ './CODEOWNERS' }})"
       - name: "Enforce convention if creator is not a CODEOWNER"
         if: '! contains(${{ steps.getcodeowners.outputs.codeowners }}, ${{ github.actor }})'
-        run: REGEXP="^refs\/heads\/BL-\d+-\S*$" && BRANCH=${{ github.ref }} && [[ $BRANCH =~ $REGEXP ]] && exit 1
+        run: REGEXP="^refs\/heads\/BL-\d+-\S*$" && BRANCH=${{ github.ref }} && [[ $BRANCH =~ $REGEXP ]] && exit 0
