@@ -14,5 +14,5 @@ jobs:
           # min_length: 5 # Min length of the branch name
           # max_length: 20 # Max length of the branch name
       - name: "Notify of errors"
-        if: ${{ failure }}
+        if: ${{ failure() }}
         run: echo "⚠️ IMPORTANT:Your branch name must start with a Jira issue ID! (e.g., BL-123)"
