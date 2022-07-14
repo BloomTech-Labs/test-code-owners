@@ -1,4 +1,4 @@
-name: enforce_branch_name
+name: enforce_branch_name_2
 
 on: create
 
