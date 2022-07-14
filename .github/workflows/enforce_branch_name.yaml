@@ -13,15 +13,6 @@ jobs:
           # ignore: master,develop # Ignore exactly matching branch names from convention
           # min_length: 5 # Min length of the branch name
           # max_length: 20 # Max length of the branch name
-
-#   enforce_branch_name:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: "Checkout source code"
-#         uses: actions/checkout@v3
-#       - name: "Read CODEOWNERS file"
-#         id: getcodeowners
-#         run: echo "::set-output name=codeowners::$(cat {{ './CODEOWNERS' }})"
-#       - name: "Enforce convention if creator is not a CODEOWNER"
-#         if: '! contains(${{ steps.getcodeowners.outputs.codeowners }}, ${{ github.actor }})'
-#         run: REGEXP="^refs\/heads\/BL-\d+-\S*$" && BRANCH=${{ github.ref }} && [[ $BRANCH =~ $REGEXP ]] && exit 
+      - name: "Notify of errors"
+        if: ${{ failure }}
+        run: echo "⚠️ IMPORTANT:Your branch name must start with a Jira issue ID! (e.g., BL-123)"
