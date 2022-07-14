@@ -1,4 +1,4 @@
-name: enforce_branch_name
+name: branch-name-must-start-with-jira-issue-id
 on: pull_request
 
 jobs:
