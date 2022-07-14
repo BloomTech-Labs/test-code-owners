@@ -2,7 +2,7 @@ name: enforce_branch_name
 on: pull_request
 
 jobs:
-  branch-naming-rules:
+  branch-name-must-start-with-jira-issue-id:
     runs-on: ubuntu-latest
     steps:
       - name: "Enforce branch name rules"
